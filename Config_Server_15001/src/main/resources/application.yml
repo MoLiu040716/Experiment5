@@ -1,0 +1,37 @@
+server:
+  port: 15001
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/romantic-flying-pig/config-svn.git
+          username: 13140263099
+          password: 18580zjhdh
+          default-label: master
+  application:
+    name: "config-server"
+  rabbitmq:
+    stream:
+      host: localhost
+      port: 5672
+      username: guest
+      password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: busrefresh
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 15
+  client:
+    service-url:
+      defaultZone: "http://eurekaServer18000:18000/eureka/,http://eurekaServer18001:18001/eureka/"
+
